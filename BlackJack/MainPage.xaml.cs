@@ -25,6 +25,7 @@ namespace BlackJack
         public MainPage()
         {
             this.InitializeComponent();
+            //bonjour
         }
     }
 }
