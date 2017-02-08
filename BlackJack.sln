@@ -5,16 +5,21 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack", "BlackJack\BlackJack.csproj", "{FD903DF9-F2B6-469B-8CCF-9FAC8533F0A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModeleClasses", "ModeleClasses\ModeleClasses.csproj", "{34EADC49-CF74-4ADE-AE35-AD49140662FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|ARM = Release|ARM
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD903DF9-F2B6-469B-8CCF-9FAC8533F0A9}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{FD903DF9-F2B6-469B-8CCF-9FAC8533F0A9}.Debug|ARM.ActiveCfg = Debug|ARM
 		{FD903DF9-F2B6-469B-8CCF-9FAC8533F0A9}.Debug|ARM.Build.0 = Debug|ARM
 		{FD903DF9-F2B6-469B-8CCF-9FAC8533F0A9}.Debug|ARM.Deploy.0 = Debug|ARM
@@ -24,6 +29,7 @@ Global
 		{FD903DF9-F2B6-469B-8CCF-9FAC8533F0A9}.Debug|x86.ActiveCfg = Debug|x86
 		{FD903DF9-F2B6-469B-8CCF-9FAC8533F0A9}.Debug|x86.Build.0 = Debug|x86
 		{FD903DF9-F2B6-469B-8CCF-9FAC8533F0A9}.Debug|x86.Deploy.0 = Debug|x86
+		{FD903DF9-F2B6-469B-8CCF-9FAC8533F0A9}.Release|Any CPU.ActiveCfg = Release|x86
 		{FD903DF9-F2B6-469B-8CCF-9FAC8533F0A9}.Release|ARM.ActiveCfg = Release|ARM
 		{FD903DF9-F2B6-469B-8CCF-9FAC8533F0A9}.Release|ARM.Build.0 = Release|ARM
 		{FD903DF9-F2B6-469B-8CCF-9FAC8533F0A9}.Release|ARM.Deploy.0 = Release|ARM
@@ -33,6 +39,22 @@ Global
 		{FD903DF9-F2B6-469B-8CCF-9FAC8533F0A9}.Release|x86.ActiveCfg = Release|x86
 		{FD903DF9-F2B6-469B-8CCF-9FAC8533F0A9}.Release|x86.Build.0 = Release|x86
 		{FD903DF9-F2B6-469B-8CCF-9FAC8533F0A9}.Release|x86.Deploy.0 = Release|x86
+		{34EADC49-CF74-4ADE-AE35-AD49140662FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34EADC49-CF74-4ADE-AE35-AD49140662FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34EADC49-CF74-4ADE-AE35-AD49140662FB}.Debug|ARM.ActiveCfg = Debug|ARM
+		{34EADC49-CF74-4ADE-AE35-AD49140662FB}.Debug|ARM.Build.0 = Debug|ARM
+		{34EADC49-CF74-4ADE-AE35-AD49140662FB}.Debug|x64.ActiveCfg = Debug|x64
+		{34EADC49-CF74-4ADE-AE35-AD49140662FB}.Debug|x64.Build.0 = Debug|x64
+		{34EADC49-CF74-4ADE-AE35-AD49140662FB}.Debug|x86.ActiveCfg = Debug|x86
+		{34EADC49-CF74-4ADE-AE35-AD49140662FB}.Debug|x86.Build.0 = Debug|x86
+		{34EADC49-CF74-4ADE-AE35-AD49140662FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34EADC49-CF74-4ADE-AE35-AD49140662FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34EADC49-CF74-4ADE-AE35-AD49140662FB}.Release|ARM.ActiveCfg = Release|ARM
+		{34EADC49-CF74-4ADE-AE35-AD49140662FB}.Release|ARM.Build.0 = Release|ARM
+		{34EADC49-CF74-4ADE-AE35-AD49140662FB}.Release|x64.ActiveCfg = Release|x64
+		{34EADC49-CF74-4ADE-AE35-AD49140662FB}.Release|x64.Build.0 = Release|x64
+		{34EADC49-CF74-4ADE-AE35-AD49140662FB}.Release|x86.ActiveCfg = Release|x86
+		{34EADC49-CF74-4ADE-AE35-AD49140662FB}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
