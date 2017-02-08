@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlackJack.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,8 @@ namespace BlackJack
         public MainPage()
         {
             this.InitializeComponent();
+            ApiRead apiResponse = new ApiRead();
+            apiResponse.GetUsers();
             //bonjour
             //salut c'est le commentaire d'Antonio
         }
