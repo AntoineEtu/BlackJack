@@ -1,4 +1,5 @@
 ﻿using BlackJack.ViewModel;
+using ModeleClasses;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,8 +27,10 @@ namespace BlackJack
         public MainPage()
         {
             this.InitializeComponent();
-            ApiRead apiResponse = new ApiRead();
-            apiResponse.GetUsers();
+            //test de création de user
+            ApiCreateOrUpdate apiResponse = new ApiCreateOrUpdate();
+            User user1 = new User("FishBluffer","Antoine","Keribin","antoine.keribin@ynov.com","motdepasse123");
+            apiResponse.ApiCreateUser(user1);
             //bonjour
             //salut c'est le commentaire d'Antonio
         }
