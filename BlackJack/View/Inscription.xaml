@@ -1,0 +1,32 @@
+﻿<Page
+    x:Class="BlackJack.View.Inscription"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BlackJack.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
+            <TextBox PlaceholderText="username" Name="username" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=UserName, Mode=TwoWay}"></TextBox>
+            <TextBox PlaceholderText="firstname" Name="firstname" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=FirstName, Mode=TwoWay}"></TextBox>
+            <TextBox PlaceholderText="lastname" Name="lastname" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=LastName, Mode=TwoWay}"></TextBox>
+            <TextBox PlaceholderText="email" Name="email" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=Email, Mode=TwoWay}"></TextBox>
+            <PasswordBox PlaceholderText="password" Name="password" Password="{Binding UpdateSourceTrigger=PropertyChanged, Path=Password, Mode=TwoWay}"></PasswordBox>
+            <PasswordBox PlaceholderText="Repeate password" Name="rpassword" Password="{Binding UpdateSourceTrigger=PropertyChanged, Path=RPassword, Mode=TwoWay}"></PasswordBox>
+            <Button Margin="0,20,0,0" Content="Register" x:Name="Submit"  Command="{Binding Path =RegisterCommand}" HorizontalAlignment="Stretch"/>
+        </StackPanel>
+    </Grid>
+</Page>

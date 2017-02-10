@@ -103,6 +103,12 @@
     <Compile Include="ViewModel\ApiRead.cs" />
     <Compile Include="ViewModel\ApiCreateOrUpdate.cs" />
     <Compile Include="ViewModel\ApiDelete.cs" />
+    <Compile Include="View\Inscription.xaml.cs">
+      <DependentUpon>Inscription.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MenuAccueil.xaml.cs">
+      <DependentUpon>MenuAccueil.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -111,6 +117,7 @@
     <None Include="BlackJack_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Image\blackjack-2.png" />
     <Content Include="Assets\Image\blackjack.jpg" />
     <Content Include="Assets\Image\header_chips.png" />
     <Content Include="Assets\Image\header_chips.scale-100.png" />
@@ -133,7 +140,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Resources\ContentCustom.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
     <Page Include="View\Accueil.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Inscription.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MenuAccueil.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
