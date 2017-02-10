@@ -20,13 +20,13 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
-            <TextBox PlaceholderText="username" Name="username" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=UserName, Mode=TwoWay}"></TextBox>
-            <TextBox PlaceholderText="firstname" Name="firstname" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=FirstName, Mode=TwoWay}"></TextBox>
-            <TextBox PlaceholderText="lastname" Name="lastname" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=LastName, Mode=TwoWay}"></TextBox>
-            <TextBox PlaceholderText="email" Name="email" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=Email, Mode=TwoWay}"></TextBox>
-            <PasswordBox PlaceholderText="password" Name="password" Password="{Binding UpdateSourceTrigger=PropertyChanged, Path=Password, Mode=TwoWay}"></PasswordBox>
-            <PasswordBox PlaceholderText="Repeate password" Name="rpassword" Password="{Binding UpdateSourceTrigger=PropertyChanged, Path=RPassword, Mode=TwoWay}"></PasswordBox>
-            <Button Margin="0,20,0,0" Content="Register" x:Name="Submit"  Command="{Binding Path =RegisterCommand}" HorizontalAlignment="Stretch"/>
+            <TextBox PlaceholderText="Pseudo"   Name="username"     Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=UserName,  Mode=TwoWay}"></TextBox>
+            <TextBox PlaceholderText="Prénon"   Name="firstname"    Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=FirstName, Mode=TwoWay}"></TextBox>
+            <TextBox PlaceholderText="Nom"      Name="lastname"     Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=LastName,  Mode=TwoWay}"></TextBox>
+            <TextBox PlaceholderText="Email"    Name="email"        Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=Email,     Mode=TwoWay}"></TextBox>
+            <PasswordBox PlaceholderText="Mot de passe" Name="password" Password="{Binding UpdateSourceTrigger=PropertyChanged, Path=Password,  Mode=TwoWay}"></PasswordBox>
+            <PasswordBox PlaceholderText="Confirmation du mot de passe" Name="rpassword" Password="{Binding UpdateSourceTrigger=PropertyChanged, Path=RPassword, Mode=TwoWay}"></PasswordBox>
+            <Button Margin="0,20,0,0" Content="S'inscrire" x:Name="InscriptionSubmit"  Command="{Binding Path =RegisterCommand}" HorizontalAlignment="Stretch"/>
         </StackPanel>
     </Grid>
 </Page>

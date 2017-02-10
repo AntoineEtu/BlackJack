@@ -1,4 +1,5 @@
-﻿using BlackJack.ViewModel;
+﻿using BlackJack.View;
+using BlackJack.ViewModel;
 using ModeleClasses;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,8 @@ namespace BlackJack
         public MainPage()
         {
             this.InitializeComponent();
+            var page1 = new MenuAccueil(); //create your new page.
+            this.Content = page1;
             //test de création de user
             ApiCreateOrUpdate apiResponse = new ApiCreateOrUpdate();
             User user1 = new User("FishBluffer","Antoine","Keribin","antoine.keribin@ynov.com","motdepasse123");

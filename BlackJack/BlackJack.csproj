@@ -103,6 +103,7 @@
     <Compile Include="ViewModel\ApiRead.cs" />
     <Compile Include="ViewModel\ApiCreateOrUpdate.cs" />
     <Compile Include="ViewModel\ApiDelete.cs" />
+    <Compile Include="ViewModel\UserViewModel.cs" />
     <Compile Include="View\Inscription.xaml.cs">
       <DependentUpon>Inscription.xaml</DependentUpon>
     </Compile>
@@ -144,10 +145,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="View\Accueil.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Inscription.xaml">
       <SubType>Designer</SubType>

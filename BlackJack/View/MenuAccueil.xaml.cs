@@ -31,5 +31,7 @@ namespace BlackJack.View
         {
             this.Frame.Navigate(typeof(Inscription));
         }
+
+        
     }
 }
