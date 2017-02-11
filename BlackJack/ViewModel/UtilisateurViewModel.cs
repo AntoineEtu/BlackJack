@@ -151,7 +151,9 @@ namespace BlackJack.ViewModel
             {
                 client.BaseAddress = new Uri("http://demo.comte.re/");
                 var json = JsonConvert.SerializeObject(user);
+                json = "{ \"user\" : " + json + " } ";
                 var itemJson = new StringContent(json, Encoding.UTF8, "application/json");
+                System.Diagnostics.Debug.WriteLine(json.ToString());
                 HttpResponseMessage response = await client.PostAsync("api/auth/register", itemJson);
                 String res = "";
                 System.Diagnostics.Debug.WriteLine(response.Content.ReadAsStringAsync().Result);
