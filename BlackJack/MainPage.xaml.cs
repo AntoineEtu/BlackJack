@@ -29,7 +29,7 @@ namespace BlackJack
             this.InitializeComponent();
             //test de création de user
             ApiCreateOrUpdate apiResponse = new ApiCreateOrUpdate();
-            User user1 = new User("FishBluffer","Antoine","Keribin","antoine.keribin@ynov.com","motdepasse123");
+            User user1 = new User("FishBluff","Antoine","Keribin","antoine.keribin@ynov.com","motdepasse123");
             apiResponse.ApiCreateUser(user1);
             //bonjour
             //salut c'est le commentaire d'Antonio
