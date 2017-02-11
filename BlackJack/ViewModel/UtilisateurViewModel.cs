@@ -43,7 +43,7 @@ namespace BlackJack.ViewModel
         }
 
         private string _firstname;
-        public string FirstName
+        public string Firstname
         {
             get { return _firstname; }
             set {
@@ -145,8 +145,7 @@ namespace BlackJack.ViewModel
 
         public void Inscription()
         {
-            //ici la requete vers l'api
-            System.Diagnostics.Debug.WriteLine("Petit message");
+            
         }
     }
 }
