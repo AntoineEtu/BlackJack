@@ -267,19 +267,11 @@ namespace ModeleClasses
 
         public User(string username, string firstname, string lastname, string email, string password)
         {
-            this.id = 0;
             this.username = username;
             this.firstname = firstname;
             this.lastname = lastname;
             this.email = email;
             this.password = password;
-            this.status = 0;
-            this.created_at = new DateTime();
-            this.updated_at = new DateTime();
-            this.stack = 0;
-            this.is_connected = 0;
-            this.status = 0;
-            this.last_refill = new DateTime();
         }
 
         ~User()
