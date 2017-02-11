@@ -25,17 +25,27 @@ namespace BlackJack
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
+        public ConnexionViewModel connexion;
         public MainPage()
         {
             this.InitializeComponent();
-            var page1 = new MenuAccueil(); //create your new page.
-            this.Content = page1;
+
+            connexion = new ConnexionViewModel();
+            this.DataContext = connexion;
+
+
             //test de création de user
-            ApiCreateOrUpdate apiResponse = new ApiCreateOrUpdate();
-            User user1 = new User("FishBluffer","Antoine","Keribin","antoine.keribin@ynov.com","motdepasse123");
-            apiResponse.ApiCreateUser(user1);
+            //ApiCreateOrUpdate apiResponse = new ApiCreateOrUpdate();
+            //User user1 = new User("FishBluffer","Antoine","Keribin","antoine.keribin@ynov.com","motdepasse123");
+            //apiResponse.ApiCreateUser(user1);
             //bonjour
             //salut c'est le commentaire d'Antonio
+        }
+
+        private void inscription_click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Inscription), "success");
         }
     }
 }

@@ -11,6 +11,33 @@
 
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" >
+                <TextBox Margin="10" Name="email"  PlaceholderText="Email" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=Email, Mode=TwoWay}" />
+                <PasswordBox Margin="10" Name="password" PlaceholderText="Password" Password="{Binding UpdateSourceTrigger=PropertyChanged, Path=Password, Mode=TwoWay}"/>
+                <Button Margin="10,0,10,0" Name="submit" Content="Connexion" Command="{Binding Path =ConnexionUtilisateur}"  HorizontalAlignment="Stretch"/>
+                
+            </StackPanel>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="2">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <Button x:Name="inscription" Margin="10" Content="Inscription" HorizontalAlignment="Stretch" Click="inscription_click"/>
+               
+                <Button Margin="10" Content="Informations" HorizontalAlignment="Stretch"  />
+            </StackPanel>
+        </StackPanel>
+    
     </Grid>
 </Page>

@@ -103,12 +103,10 @@
     <Compile Include="ViewModel\ApiRead.cs" />
     <Compile Include="ViewModel\ApiCreateOrUpdate.cs" />
     <Compile Include="ViewModel\ApiDelete.cs" />
+    <Compile Include="ViewModel\ConnexionViewModel.cs" />
     <Compile Include="ViewModel\UtilisateurViewModel.cs" />
     <Compile Include="View\Inscription.xaml.cs">
       <DependentUpon>Inscription.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\MenuAccueil.xaml.cs">
-      <DependentUpon>MenuAccueil.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -147,10 +145,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="View\Inscription.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\MenuAccueil.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

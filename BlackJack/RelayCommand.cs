@@ -7,68 +7,29 @@ using System.Windows.Input;
 
 namespace BlackJack
 {
-    public class RelayCommand<T> : ICommand
+    public class RelayCommand : ICommand
     {
-        #region Fields
+        //http://fabiendieulle.blog.free.fr/index.php?post/2009/08/23/MVVM-Les-RelayCommands
 
-        private readonly Action<T> _execute = null;
-        private readonly Predicate<T> _canExecute = null;
+        private Action<object> execute;
+        private Func<object, bool> canExecute;
 
-        #endregion
+        public event EventHandler CanExecuteChanged;
 
-        #region Constructors
-
-        /// <summary>
-        /// Creates a new command that can always execute.
-        /// </summary>
-        /// <param name="execute">The execution logic.</param>
-        public RelayCommand(Action<T> execute)
-            : this(execute, null)
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
         {
+            this.execute = execute;
+            this.canExecute = canExecute;
         }
-
-        /// <summary>
-        /// Creates a new command with conditional execution.
-        /// </summary>
-        /// <param name="execute">The execution logic.</param>
-        /// <param name="canExecute">The execution status logic.</param>
-        public RelayCommand(Action<T> execute, Predicate<T> canExecute)
-        {
-            if (execute == null)
-                throw new ArgumentNullException("execute");
-
-            _execute = execute;
-            _canExecute = canExecute;
-        }
-
-        #endregion
-
-        #region ICommand Members
 
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null ? true : _canExecute((T)parameter);
-        }
-
-        public event EventHandler CanExecuteChanged
-        {
-            add
-            {
-                if (_canExecute != null)
-                    CommandManager.RequerySuggested += value;
-            }
-            remove
-            {
-                if (_canExecute != null)
-                    CommandManager.RequerySuggested -= value;
-            }
+            return this.canExecute == null || this.canExecute(parameter);
         }
 
         public void Execute(object parameter)
         {
-            _execute((T)parameter);
+            this.execute(parameter);
         }
-
-        #endregion
     }
 }

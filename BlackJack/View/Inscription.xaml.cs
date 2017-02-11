@@ -23,8 +23,18 @@ namespace BlackJack.View
     /// </summary>
     public sealed partial class Inscription : Page
     {
-        
+
        
+        public UtilisateurViewModel inscription;
+        public Inscription()
+        {
+            this.InitializeComponent();
+
+            //datacontext
+            inscription = new UtilisateurViewModel();
+            this.DataContext = inscription;
+
+        }
 
 
     }
