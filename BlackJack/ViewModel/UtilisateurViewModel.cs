@@ -1,8 +1,10 @@
 ﻿using ModeleClasses;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -142,11 +144,35 @@ namespace BlackJack.ViewModel
         }
 
 
-
-        public void Inscription()
+        public async void Inscription()
         {
-            //ici la requete vers l'api
-            System.Diagnostics.Debug.WriteLine("Petit message");
+            User user = new User("Idiot2000", "Thomas", "Gerard", "gerard@ynov.com", "gerard");
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://demo.comte.re/");
+                var json = JsonConvert.SerializeObject(user);
+                var itemJson = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync("api/auth/register", itemJson);
+                String res = "";
+                System.Diagnostics.Debug.WriteLine(response.Content.ReadAsStringAsync().Result);
+                if (response.IsSuccessStatusCode)
+                {
+                    //System.Diagnostics.Debug.WriteLine("1er :"+response.Content.ToString());
+                    res = await response.Content.ReadAsStringAsync();
+                    //System.Diagnostics.Debug.WriteLine(response.Content.ReadAsStringAsync().Result);
+                    System.Diagnostics.Debug.WriteLine("2eme :" + res);
+
+                }
+                else
+                {
+                    //messages d'érreurs
+                    System.Diagnostics.Debug.WriteLine("création raté - erreurs :");
+                    System.Diagnostics.Debug.WriteLine(response.StatusCode.ToString());
+                    System.Diagnostics.Debug.WriteLine(response.Headers.ToString());
+                    System.Diagnostics.Debug.WriteLine(response.ReasonPhrase.ToString());
+                    System.Diagnostics.Debug.WriteLine(response.RequestMessage.ToString());
+                }
+            }
         }
     }
 }

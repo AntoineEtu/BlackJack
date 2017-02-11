@@ -35,7 +35,5 @@ namespace BlackJack.View
             this.DataContext = inscription;
 
         }
-
-
     }
 }
