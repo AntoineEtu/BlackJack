@@ -49,6 +49,8 @@ namespace ModeleClasses
         [JsonProperty("secret")]
         private string secret;
 
+        public UserGame userGame { get; set; }
+
         public int Id
         {
             get { return id; }
@@ -261,7 +263,7 @@ namespace ModeleClasses
             this.is_connected = 0;
             this.status = 0;
             this.last_refill = new DateTime();
-            
+            this.userGame = null;
 
         }
 
@@ -272,6 +274,14 @@ namespace ModeleClasses
             this.lastname = lastname;
             this.email = email;
             this.password = password;
+            this.status = 0;
+            this.created_at = new DateTime();
+            this.updated_at = new DateTime();
+            this.stack = 0;
+            this.is_connected = 0;
+            this.status = 0;
+            this.last_refill = new DateTime();
+            this.userGame = null;
         }
 
         ~User()
