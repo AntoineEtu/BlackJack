@@ -19,7 +19,7 @@ namespace ModeleClasses
         public string token_type { get; set; }
 
         [JsonProperty("expires_in")]
-        public double expires_in { get; set; }
+        public string expires_in { get; set; }
 
         [JsonProperty("access_token")]
         public string access_token { get; set; }
@@ -30,7 +30,7 @@ namespace ModeleClasses
         public Token()
         {
             this.token_type = null;
-            this.expires_in = 0;
+            this.expires_in = null;
             this.access_token = null;
             this.refresh_token = null;
         }

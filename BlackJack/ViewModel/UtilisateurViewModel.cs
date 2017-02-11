@@ -20,10 +20,11 @@ namespace BlackJack.ViewModel
     public class UtilisateurViewModel : INotifyPropertyChanged
     {
 
-        //Pour les messages d'erreur
-       // MessageDialog message = new MessageDialog(" ");
-        //Frame actualFrame { get { return Window.Current.Content as Frame; } }
+        
+        Frame actualFrame { get { return Window.Current.Content as Frame; } }
+
         public event PropertyChangedEventHandler PropertyChanged;
+
         public void NotifyPropertyChanged([CallerMemberName] string str = "")
         {
             if (PropertyChanged != null)
@@ -177,6 +178,7 @@ namespace BlackJack.ViewModel
 
 
                 ajoutUtilisateur(user);
+                actualFrame.Navigate(typeof(MainPage));
             }
           
         }
@@ -199,6 +201,8 @@ namespace BlackJack.ViewModel
                     await message.ShowAsync();
                     string res = await response.Content.ReadAsStringAsync();
                     System.Diagnostics.Debug.WriteLine(res);
+
+                    actualFrame.Navigate(typeof(MainPage));
                 }
                 else
                 {
@@ -206,6 +210,8 @@ namespace BlackJack.ViewModel
                     await message.ShowAsync();
                     string res = await response.Content.ReadAsStringAsync();
                     System.Diagnostics.Debug.WriteLine(res);
+
+                    
                 }
             }
         }

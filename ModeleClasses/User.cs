@@ -10,44 +10,66 @@ namespace ModeleClasses
 {
     public class User : INotifyPropertyChanged
     {
+        #region variables
         [JsonProperty("id")]
-        private int id;
+        public int id;
 
         [JsonProperty("username")]
-        private string username;
+        public string username;
 
         [JsonProperty("firstname")]
-        private string firstname;
+        public string firstname;
 
         [JsonProperty("lastname")]
-        private string lastname;
+        public string lastname;
 
         [JsonProperty("email")]
-        private string email;
+        public string email;
 
         [JsonProperty("password")]
-        private string password;
+        public string password;
 
         [JsonProperty("status")]
-        private int status;
+        public int status;
 
         [JsonProperty("is_connected")]
-        private int is_connected;
+        public int is_connected;
 
         [JsonProperty("stack")]
-        private int stack;
+        public int stack;
 
         [JsonProperty("last_refill")]
-        private DateTime last_refill;
+        public DateTime last_refill;
 
         [JsonProperty("created_at")]
-        private DateTime created_at;
+        public DateTime created_at;
 
         [JsonProperty("updated_at")]
-        private DateTime updated_at;
+        public DateTime updated_at;
 
         [JsonProperty("secret")]
-        private string secret;
+        public string secret;
+
+        [JsonProperty("access_token")]
+        public string access_token;
+
+        #endregion variables 
+
+        public string Access_token
+        {
+            get { return access_token; }
+            set
+            {
+                if (value != access_token)
+                {
+                    access_token = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("access_token"));
+                    }
+                }
+            }
+        }
 
         public int Id
         {
