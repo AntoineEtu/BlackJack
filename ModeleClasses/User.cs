@@ -1,52 +1,249 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ModeleClasses
 {
-    public class User
+    public class User : INotifyPropertyChanged
     {
         [JsonProperty("id")]
-        public int id { get; set; }
+        private int id;
 
         [JsonProperty("username")]
-        public string username { get; set; }
+        private string username;
 
         [JsonProperty("firstname")]
-        public string firstname { get; set; }
+        private string firstname;
 
         [JsonProperty("lastname")]
-        public string lastname { get; set; }
+        private string lastname;
 
         [JsonProperty("email")]
-        public string email { get; set; }
+        private string email;
 
         [JsonProperty("password")]
-        public string password { get; set; }
+        private string password;
 
         [JsonProperty("status")]
-        public int status { get; set; }
+        private int status;
 
         [JsonProperty("is_connected")]
-        public int is_connected { get; set; }
+        private int is_connected;
 
         [JsonProperty("stack")]
-        public int stack { get; set; }
+        private int stack;
 
         [JsonProperty("last_refill")]
-        public DateTime last_refill { get; set; }
+        private DateTime last_refill;
 
         [JsonProperty("created_at")]
-        public DateTime created_at { get; set; }
+        private DateTime created_at;
 
         [JsonProperty("updated_at")]
-        public DateTime updated_at { get; set; }
+        private DateTime updated_at;
 
         [JsonProperty("secret")]
-        public string secret { get; set; }
+        private string secret;
+
+        public int Id
+        {
+            get { return id; }
+            set
+            {
+                if (value != id)
+                {
+                    id = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("id"));
+                    }
+                }
+            }
+        }
+       
+        public string Username
+        {
+            get { return username; }
+            set {
+                if (value != username)
+                {
+                    username = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("username"));
+                    }
+                }
+            }
+        }
+       
+        public string Firstname
+        {
+            get { return firstname; }
+            set {
+                if (value != firstname)
+                {
+                    firstname = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("firstname"));
+                    }
+                }
+            }
+        }
+
+        public string Lastname
+        {
+            get { return lastname; }
+            set {
+                if (value != lastname)
+                {
+                    lastname = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("lastname"));
+                    }
+                }
+            }
+        }
+
+        public string Email
+        {
+            get { return email; }
+            set {
+                if (value != email)
+                {
+                    email = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("email"));
+                    }
+                }
+            }
+        }
+
+        public string Password
+        {
+            get { return password; }
+            set {
+                if (value != password)
+                {
+                    password = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("password"));
+                    }
+                }
+            }
+        }
+
+        public int Status
+        {
+            get { return status; }
+            set {
+                if (value != status)
+                {
+                    status = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("status"));
+                    }
+                }
+            }
+        }
+
+        public int Is_connected
+        {
+            get { return is_connected; }
+            set {
+                if (value != is_connected)
+                {
+                    is_connected = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("is_connected"));
+                    }
+                }
+            }
+        }
+
+        public int Stack
+        {
+            get { return stack; }
+            set {
+                if (value != stack)
+                {
+                    stack = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("stack"));
+                    }
+                }
+            }
+        }
+
+        public DateTime Last_refill
+        {
+            get { return last_refill; }
+            set {
+                if (value != last_refill)
+                {
+                    last_refill = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("last_refill"));
+                    }
+                }
+            }
+        }
+
+        public DateTime Created_at
+        {
+            get { return created_at; }
+            set {
+                if (value != last_refill)
+                {
+                    last_refill = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("last_refill"));
+                    }
+                }
+            }
+        }
+
+        public DateTime Updated_at
+        {
+            get { return updated_at; }
+            set {
+                if (value != updated_at)
+                {
+                    updated_at = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("updated_at"));
+                    }
+                }
+            }
+        }
+
+        public string Secret
+        {
+            get { return secret; }
+            set {
+                if (value != secret)
+                {
+                    secret = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("secret"));
+                    }
+                }
+            }
+        }
 
 
         public User()
@@ -90,5 +287,6 @@ namespace ModeleClasses
 
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

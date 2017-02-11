@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ModeleClasses
 {
-    class Token
+    public class Token
     {
         /*
          "token_type" : "XXXX",

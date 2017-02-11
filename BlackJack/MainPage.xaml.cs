@@ -1,4 +1,5 @@
-﻿using BlackJack.ViewModel;
+﻿using BlackJack.View;
+using BlackJack.ViewModel;
 using ModeleClasses;
 using System;
 using System.Collections.Generic;
@@ -24,15 +25,27 @@ namespace BlackJack
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
+        public ConnexionViewModel connexion;
         public MainPage()
         {
             this.InitializeComponent();
+
+            connexion = new ConnexionViewModel();
+            this.DataContext = connexion;
+
+
             //test de création de user
-            ApiCreateOrUpdate apiResponse = new ApiCreateOrUpdate();
-            User user1 = new User("FishBluff","Antoine","Keribin","antoine.keribin@ynov.com","motdepasse123");
-            apiResponse.ApiCreateUser(user1);
+            //ApiCreateOrUpdate apiResponse = new ApiCreateOrUpdate();
+            //User user1 = new User("FishBluffer","Antoine","Keribin","antoine.keribin@ynov.com","motdepasse123");
+            //apiResponse.ApiCreateUser(user1);
             //bonjour
             //salut c'est le commentaire d'Antonio
+        }
+
+        private void inscription_click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Inscription), "success");
         }
     }
 }
