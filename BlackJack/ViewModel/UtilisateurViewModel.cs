@@ -45,7 +45,7 @@ namespace BlackJack.ViewModel
         }
 
         private string _firstname;
-        public string FirstName
+        public string Firstname
         {
             get { return _firstname; }
             set {
