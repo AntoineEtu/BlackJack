@@ -20,6 +20,7 @@ namespace BlackJack.ViewModel
                 var itemJson = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync("api/auth/register", itemJson);
                 String res = "";
+                System.Diagnostics.Debug.WriteLine(response.Content.ReadAsStringAsync().Result);
                 if (response.IsSuccessStatusCode)
                 {
                     //System.Diagnostics.Debug.WriteLine("1er :"+response.Content.ToString());
