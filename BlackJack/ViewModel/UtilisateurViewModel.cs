@@ -3,13 +3,17 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace BlackJack.ViewModel
 {
@@ -17,8 +21,8 @@ namespace BlackJack.ViewModel
     {
 
         //Pour les messages d'erreur
-        MessageDialog dialog = new MessageDialog(" ");
-
+       // MessageDialog message = new MessageDialog(" ");
+        //Frame actualFrame { get { return Window.Current.Content as Frame; } }
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged([CallerMemberName] string str = "")
         {
@@ -146,33 +150,72 @@ namespace BlackJack.ViewModel
 
         public async void Inscription()
         {
-            User user = new User("Idiot2000", "Thomas", "Gerard", "gerard@ynov.com", "gerard");
+            if (Username == null || Firstname == null || Lastname == null)
+            {
+                var message = new MessageDialog("Vérifier vos noms !");
+                await message.ShowAsync();
+            }
+            if (Password != PasswordConfirm || Password == null || PasswordConfirm == null)
+            {
+                var message = new MessageDialog("Verrifier vos mots de passe !");
+                await message.ShowAsync();
+            }
+            if(Email == null || !VerificationEmail(Email))
+            {
+                var message = new MessageDialog("Vérifier la syntaxe de votre email !");
+                await message.ShowAsync();
+            }
+           
+            else
+            {
+                User user = new User();
+                user.Lastname = Lastname;
+                user.Username = Username;
+                user.Firstname = Firstname;
+                user.Email = Email;
+                user.Password = Password;
+
+
+                ajoutUtilisateur(user);
+            }
+          
+        }
+
+
+        public async void ajoutUtilisateur(User user)
+        {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://demo.comte.re/");
-                var json = JsonConvert.SerializeObject(user);
+                client.BaseAddress = new Uri("http://demo.comte.re");
+
+                var json = JsonConvert.SerializeObject(new { user = user });
                 var itemJson = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync("api/auth/register", itemJson);
-                String res = "";
-                System.Diagnostics.Debug.WriteLine(response.Content.ReadAsStringAsync().Result);
+
+                HttpResponseMessage response = await client.PostAsync("/api/auth/register", itemJson);
+
                 if (response.IsSuccessStatusCode)
                 {
-                    //System.Diagnostics.Debug.WriteLine("1er :"+response.Content.ToString());
-                    res = await response.Content.ReadAsStringAsync();
-                    //System.Diagnostics.Debug.WriteLine(response.Content.ReadAsStringAsync().Result);
-                    System.Diagnostics.Debug.WriteLine("2eme :" + res);
-
+                    var message = new MessageDialog("Votre inscription a été réussite!");
+                    await message.ShowAsync();
+                    string res = await response.Content.ReadAsStringAsync();
+                    System.Diagnostics.Debug.WriteLine(res);
                 }
                 else
                 {
-                    //messages d'érreurs
-                    System.Diagnostics.Debug.WriteLine("création raté - erreurs :");
-                    System.Diagnostics.Debug.WriteLine(response.StatusCode.ToString());
-                    System.Diagnostics.Debug.WriteLine(response.Headers.ToString());
-                    System.Diagnostics.Debug.WriteLine(response.ReasonPhrase.ToString());
-                    System.Diagnostics.Debug.WriteLine(response.RequestMessage.ToString());
+                    var message = new MessageDialog("Votre inscription n'a pas marcher!", json);
+                    await message.ShowAsync();
+                    string res = await response.Content.ReadAsStringAsync();
+                    System.Diagnostics.Debug.WriteLine(res);
                 }
             }
         }
+        public bool VerificationEmail(string _email)
+        {
+            return Regex.IsMatch(_email, @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
+        }
+
     }
+
+        
+    
 }
