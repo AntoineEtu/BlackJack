@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlackJack.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +23,9 @@ namespace BlackJack.View
     /// </summary>
     public sealed partial class Inscription : Page
     {
-        public Inscription()
-        {
-            this.InitializeComponent();
-        }
+        
+       
+
+
     }
 }

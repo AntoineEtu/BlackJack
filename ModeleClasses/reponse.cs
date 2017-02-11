@@ -11,12 +11,16 @@ namespace ModeleClasses
     {
         [JsonProperty("user")]
         public User user { get; set; }
+
         [JsonProperty("status")]
         public String status { get; set; }
+
         [JsonProperty("message")]
         public String message { get; set; }
+
         [JsonProperty("error_code")]
         public String error_code { get; set; }
+
         [JsonProperty("error")]
         public String error { get; set; }
         /*
