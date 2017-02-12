@@ -36,6 +36,7 @@
                 <Button x:Name="inscription" Margin="10" Content="Inscription" HorizontalAlignment="Stretch" Click="inscription_click"/>
                
                 <Button Margin="10" Content="Informations" HorizontalAlignment="Stretch"  />
+                <Button Margin="10" Content="Quitter" HorizontalAlignment="Stretch"  Command="{Binding Path =ExitUtilisateur}" />
             </StackPanel>
         </StackPanel>
     

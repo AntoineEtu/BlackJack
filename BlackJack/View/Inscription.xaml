@@ -16,18 +16,21 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
+        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
             <TextBox PlaceholderText="Pseudo"   Name="username"     Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=Username,  Mode=TwoWay}"></TextBox>
             <TextBox PlaceholderText="Prénon"   Name="firstname"    Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=Firstname, Mode=TwoWay}"></TextBox>
             <TextBox PlaceholderText="Nom"      Name="lastname"     Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=Lastname,  Mode=TwoWay}"></TextBox>
             <TextBox PlaceholderText="Email"    Name="email"        Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=Email,     Mode=TwoWay}"></TextBox>
             <PasswordBox PlaceholderText="Mot de passe" Name="password" Password="{Binding UpdateSourceTrigger=PropertyChanged, Path=Password,  Mode=TwoWay}"></PasswordBox>
             <PasswordBox PlaceholderText="Confirmation du mot de passe" Name="rpassword" Password="{Binding UpdateSourceTrigger=PropertyChanged, Path=PasswordConfirm, Mode=TwoWay}"></PasswordBox>
-            <Button Margin="0,20,0,0" Content="S'inscrire" x:Name="InscriptionSubmit"  Command="{Binding Path =InscriptionUtilisateur}" HorizontalAlignment="Stretch"/>
+            
         </StackPanel>
+        <Button  Grid.Column="2" Grid.Row="1"  Content="S'inscrire" x:Name="InscriptionSubmit"  Command="{Binding Path =InscriptionUtilisateur}" HorizontalAlignment="Stretch"/>
+        <Button  Grid.Column="1" Grid.Row="1"  Content="Retour" x:Name="Retour"  Command="{Binding Path =Retour}" HorizontalAlignment="Stretch"/>
     </Grid>
 </Page>

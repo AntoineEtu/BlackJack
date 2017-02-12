@@ -1,30 +1,148 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ModeleClasses
 {
-    public class Table
+    public class Table : INotifyPropertyChanged
     {
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         [JsonProperty("id")]
-        public int id { get; set; }
+        private int id;
+
+        public int Id
+        {
+            get { return id; }
+            set {
+                if (value != id)
+                {
+                    id = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("id"));
+                    }
+                }
+            }
+        }
+
+       
+
         [JsonProperty("max_seat")]
-        public int max_seat { get; set; }
+       
+        private int max_seat;
+
+        public int Max_seat
+        {
+            get { return max_seat; }
+            set {
+                if (value != max_seat)
+                {
+                    max_seat = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("max_seat"));
+                    }
+                }
+            }
+        }
+
         [JsonProperty("seats_available")]
-        public int seats_available { get; set; }
+        private int seats_available;
+        public int Seats_available
+        {
+            get { return seats_available; }
+            set {
+                if (value != seats_available)
+                {
+                    seats_available = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("seats_available"));
+                    }
+                }
+            }
+        }
+
         [JsonProperty("min_bet")]
-        public Double min_bet { get; set; }
+        private Double min_bet;
+        public Double Min_bet
+        {
+            get { return min_bet; }
+            set {
+                min_bet = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("min_bet"));
+                }
+            }
+        }
+
         [JsonProperty("last_activity")]
-        public DateTime last_activity { get; set; }
+        private DateTime last_activity;
+        public DateTime Last_activity
+        {
+            get { return last_activity; }
+            set {
+                last_activity = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("last_activity"));
+                }
+            }
+        }
+
         [JsonProperty("is_closed")]
-        public Double is_closed { get; set; }
+        private Double is_closed;
+        public Double Is_closed
+        {
+            get { return is_closed; }
+            set {
+                is_closed = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("is_closed"));
+                }
+            }
+        }
+
         [JsonProperty("created_at")]
-        public DateTime created_at { get; set; }
+        private DateTime created_at;
+        public DateTime Created_at
+        {
+            get { return created_at; }
+            set {
+                created_at = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("created_at"));
+                }
+            }
+        }
+
+
         [JsonProperty("updated_at")]
-        public DateTime updated_at { get; set; }
+        private DateTime updated_at;
+
+        public DateTime Updated_at
+        {
+            get { return updated_at; }
+            set
+            {
+                updated_at = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("updated_at"));
+                }
+            }
+        }
+
+
 
         public Table()
         {

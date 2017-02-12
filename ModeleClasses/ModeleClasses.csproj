@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="Bank.cs" />
     <Compile Include="Card.cs" />
+    <Compile Include="ConnexionApi.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="PlateauJeu.cs" />
     <Compile Include="Reponse.cs" />
