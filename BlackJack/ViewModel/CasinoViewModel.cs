@@ -63,19 +63,6 @@ namespace BlackJack.ViewModel
 
         
 
-        public Table tableChoisi;
-        public Table TableChoisi
-        {
-            get { return tableChoisi; }
-            set
-            {
-                tableChoisi = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("tableChoisi"));
-                }
-            }
-        }
 
         private string reponseJson;
         public string ReponseJson
@@ -296,14 +283,14 @@ namespace BlackJack.ViewModel
                     var tableObject = objectJson["table"];
                     var userObject = objectJson["user"];
 
-                    this.TableChoisi.Id = int.Parse(tableObject["id"].ToString());
-                    this.TableChoisi.Max_seat = int.Parse(tableObject["max_seat"].ToString());
-                    this.TableChoisi.Seats_available = int.Parse(tableObject["seats_available"].ToString());
-                    this.TableChoisi.Min_bet = double.Parse(tableObject["min_bet"].ToString());
-                    this.TableChoisi.Last_activity = DateTime.Parse(tableObject["last_activity"].ToString());
-                    this.TableChoisi.Is_closed = double.Parse(tableObject["is_closed"].ToString());
-                    this.TableChoisi.Created_at = DateTime.Parse(tableObject["created_at"].ToString());
-                    this.TableChoisi.Updated_at = DateTime.Parse(tableObject["updated_at"].ToString());
+                    this.connexionApi.tableUtiliser.Id = int.Parse(tableObject["id"].ToString());
+                    this.connexionApi.tableUtiliser.Max_seat = int.Parse(tableObject["max_seat"].ToString());
+                    this.connexionApi.tableUtiliser.Seats_available = int.Parse(tableObject["seats_available"].ToString());
+                    this.connexionApi.tableUtiliser.Min_bet = double.Parse(tableObject["min_bet"].ToString());
+                    this.connexionApi.tableUtiliser.Last_activity = DateTime.Parse(tableObject["last_activity"].ToString());
+                    this.connexionApi.tableUtiliser.Is_closed = double.Parse(tableObject["is_closed"].ToString());
+                    this.connexionApi.tableUtiliser.Created_at = DateTime.Parse(tableObject["created_at"].ToString());
+                    this.connexionApi.tableUtiliser.Updated_at = DateTime.Parse(tableObject["updated_at"].ToString());
 
 
 

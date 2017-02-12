@@ -15,7 +15,11 @@ namespace ModeleClasses
         [JsonProperty("token")]
         public Token token { get; set; }
 
-       // public int etatCo { get; set; } // 0 = dédo, 1=  connecter 
+        [JsonProperty("table")]
+        public Table tableUtiliser { get; set; }
+
+
+        // public int etatCo { get; set; } // 0 = dédo, 1=  connecter 
 
 
         //constructeur de la connexionApi avec donc Un utilisateur et un token qui prendron des valeurs renvoyer par l'api au moment de la connexion
@@ -23,7 +27,7 @@ namespace ModeleClasses
         {
             user = new User();
             token = new Token();
-            //etatCo = 0;
+            tableUtiliser = new Table();
         }
 
         ~ConnexionApi()

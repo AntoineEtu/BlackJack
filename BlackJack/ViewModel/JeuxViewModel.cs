@@ -44,7 +44,7 @@ namespace BlackJack.ViewModel
                 if (exitTable == null)
                 {
 
-                    exitTable = exitTable ?? (exitTable = new RelayCommand(obj => { QuitterT(obj); }));
+                    exitTable = exitTable ?? (exitTable = new RelayCommand(obj => { QuitterT(); }));
 
                 }
                 return exitTable;
@@ -59,10 +59,11 @@ namespace BlackJack.ViewModel
 
         }
 
-        public void QuitterT(Object obj)
+        public void QuitterT()
         {
-            int idTable = (int)obj;
-            QuitterTable(idTable);
+            
+            QuitterTable(connexionApi.tableUtiliser.Id);
+
 
         }
         //Mettre à jour le stack de l'utilisateur
@@ -93,16 +94,16 @@ namespace BlackJack.ViewModel
                     connexionApi.user.stack = double.Parse(userObject["stack"].ToString());
 
 
-                    var message = new MessageDialog("Mise a jour des stack");
+                    var message = new MessageDialog("Vous avez quitter la table");
                     await message.ShowAsync();
 
-
+                    connexionApi.tableUtiliser = new Table();
 
                 }
                 else
                 {
-                    var res = await responseAPI.Content.ReadAsStringAsync();
-                    var dialog = new MessageDialog("Connexion refuser", res);
+                   
+                    var dialog = new MessageDialog("Vous ne pouvez pas quitter la table");
                     await dialog.ShowAsync();
                 }
             }
