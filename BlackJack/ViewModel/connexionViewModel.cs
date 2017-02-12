@@ -172,7 +172,7 @@ namespace BlackJack.ViewModel
                     connexionApi.user.firstname = userObject["firstname"].ToString();
                     connexionApi.user.lastname = userObject["lastname"].ToString();
                     connexionApi.user.email = userObject["email"].ToString();
-                    connexionApi.user.stack = int.Parse(userObject["stack"].ToString());
+                    connexionApi.user.stack = double.Parse(userObject["stack"].ToString());
 
 
                     var message = new MessageDialog("Bienvenue");

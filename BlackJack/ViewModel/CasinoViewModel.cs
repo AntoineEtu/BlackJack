@@ -1,4 +1,5 @@
-﻿using ModeleClasses;
+﻿using BlackJack.View;
+using ModeleClasses;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -56,6 +57,22 @@ namespace BlackJack.ViewModel
                 if (PropertyChanged != null)
                 {
                     PropertyChanged(this, new PropertyChangedEventArgs("connexionApi"));
+                }
+            }
+        }
+
+        
+
+        public Table tableChoisi;
+        public Table TableChoisi
+        {
+            get { return tableChoisi; }
+            set
+            {
+                tableChoisi = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("tableChoisi"));
                 }
             }
         }
@@ -267,15 +284,34 @@ namespace BlackJack.ViewModel
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", this.connexionApi.token.access_token);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpRequestMessage req = new HttpRequestMessage();
-                HttpResponseMessage response = await client.GetAsync("/api/user/" + this.ConnexionApi.user.email + "/table/" + idTable + "/sit");
+                HttpResponseMessage responseAPI = await client.GetAsync("/api/user/" + this.ConnexionApi.user.email + "/table/" + idTable + "/sit");
 
 
-                if (response.IsSuccessStatusCode)
+                if (responseAPI.IsSuccessStatusCode)
                 {
-                    var message = new MessageDialog("Bienvenue a la table " + idTable);
+
+                    var reponse = await responseAPI.Content.ReadAsStringAsync();
+                    var objectJson = JObject.Parse(reponse);
+
+                    var tableObject = objectJson["table"];
+                    var userObject = objectJson["user"];
+
+                    this.TableChoisi.Id = int.Parse(tableObject["id"].ToString());
+                    this.TableChoisi.Max_seat = int.Parse(tableObject["max_seat"].ToString());
+                    this.TableChoisi.Seats_available = int.Parse(tableObject["seats_available"].ToString());
+                    this.TableChoisi.Min_bet = double.Parse(tableObject["min_bet"].ToString());
+                    this.TableChoisi.Last_activity = DateTime.Parse(tableObject["last_activity"].ToString());
+                    this.TableChoisi.Is_closed = double.Parse(tableObject["is_closed"].ToString());
+                    this.TableChoisi.Created_at = DateTime.Parse(tableObject["created_at"].ToString());
+                    this.TableChoisi.Updated_at = DateTime.Parse(tableObject["updated_at"].ToString());
+
+
+
+                    var message = new MessageDialog(tableObject.ToString());
                     await message.ShowAsync();
                     //TableDeJeux
-                    actualFrame.Navigate(typeof(MainPage));
+                    //ajouter en params la table créer
+                    actualFrame.Navigate(typeof(TableDeJeux), this.connexionApi);
 
                 }
                 else
@@ -288,6 +324,7 @@ namespace BlackJack.ViewModel
             }
         }
 
+        //Améliorer le rendu
         //Obtenir les details de l'utilisateur
         public async void UserInfos()
         {
@@ -300,13 +337,24 @@ namespace BlackJack.ViewModel
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", this.connexionApi.token.access_token);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpRequestMessage req = new HttpRequestMessage();
-                HttpResponseMessage response = await client.GetAsync("/api/user/" + this.ConnexionApi.user.email);
+                HttpResponseMessage responseAPI = await client.GetAsync("/api/user/" + this.ConnexionApi.user.email);
 
 
-                if (response.IsSuccessStatusCode)
+                if (responseAPI.IsSuccessStatusCode)
                 {
-                    this.reponseJsonInfos = response.Content.ReadAsStringAsync().Result;
+                    var reponse = await responseAPI.Content.ReadAsStringAsync();
+                    var objectJson = JObject.Parse(reponse);
 
+                    var messageObject = objectJson["message"];
+                    var userObject = objectJson["user"];
+
+                    connexionApi.user.created_at = (DateTime)userObject["created_at"];
+                    connexionApi.user.updated_at = (DateTime)userObject["updated_at"];
+                    connexionApi.user.updated_at = (DateTime)userObject["updated_at"];
+                    connexionApi.user.stack = (Double)userObject["stack"];
+                    connexionApi.user.is_connected = (int)userObject["is_connected"];
+                    connexionApi.user.last_refill = (DateTime)userObject["last_refill"];
+                    
                     var message = new MessageDialog(this.reponseJsonInfos);
                     await message.ShowAsync();
                     
@@ -321,37 +369,7 @@ namespace BlackJack.ViewModel
             }
         }
 
-        //Quitter une table
-        public async void QuitterTable(int idTable)
-        {
-            
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://demo.comte.re/");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", this.connexionApi.token.access_token);
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpRequestMessage req = new HttpRequestMessage();
-                HttpResponseMessage response = await client.GetAsync("/api/user/" + this.ConnexionApi.user.email + "/table/" + idTable + "/leave");
-
-                //api/user/{email}/table/{id}/leave
-                if (response.IsSuccessStatusCode)
-                {
-                    var message = new MessageDialog("Vous avez quitter la table");
-                    await message.ShowAsync();
-
-
-                }
-                else
-                {
-                    var message = new MessageDialog("Nous n'arrivons pas vous trouver une place a cette table");
-                    await message.ShowAsync();
-
-                }
-
-            }
-        }
-
+     
         //Supprimer un utilisateur
         public async void SuprimerUtilisateur()
         {
@@ -383,10 +401,105 @@ namespace BlackJack.ViewModel
             }
         }
 
-        //Mettre à jour le stack de l'utilisateur
-        public async void UpdateStackUser()
-        {
+        
 
+        #region Userupdate
+        //Mettre à jour les données utilisateur
+        /*public async void UpdateUser()
+        {
+            //on par du principe que les champ changer on été initialisé dans connexionApi.user
+            //api/user/{email} PUT
+            //probléme ave c putAsync pas le temps de regarder
+            using (var client = new HttpClient())
+            {
+
+
+                client.BaseAddress = new Uri("http://demo.comte.re/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", this.connexionApi.token.access_token);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage responseAPI = await client.PutAsync("/api/user/" + connexionApi.user.email);
+
+
+
+                if (responseAPI.IsSuccessStatusCode)
+                {
+                    var reponse = await responseAPI.Content.ReadAsStringAsync();
+                    var objectJson = JObject.Parse(reponse);
+
+                    var messageObject = objectJson["message"];
+                    var userObject = objectJson["user"];
+
+                    connexionApi.user.stack = int.Parse(userObject["stack"].ToString());
+
+
+                    var message = new MessageDialog("Mise a jour des stack");
+                    await message.ShowAsync();
+
+
+
+                }
+                else
+                {
+                    var res = await responseAPI.Content.ReadAsStringAsync();
+                    var dialog = new MessageDialog("Connexion refuser", res);
+                    await dialog.ShowAsync();
+                }
+            }
+        }*/
+
+        #endregion
+
+
+        //Obtenir une recharge de jetons
+        ///api/user/{email}/refill
+        public async void rechargeJetons()
+        {
+            using (var client = new HttpClient())
+            {
+
+
+                client.BaseAddress = new Uri("http://demo.comte.re/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", this.connexionApi.token.access_token);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage responseAPI = await client.GetAsync("/api/user/" + connexionApi.user.email + "/refill");
+
+
+
+                if (responseAPI.IsSuccessStatusCode)
+                {
+                    var reponse = await responseAPI.Content.ReadAsStringAsync();
+                    var objectJson = JObject.Parse(reponse);
+
+                    var messageObject = objectJson["message"];
+                    var userObject = objectJson["user"];
+
+                    connexionApi.user.stack = double.Parse(userObject["stack"].ToString());
+
+
+                    var message = new MessageDialog("Vous avez obtenu votre recharge de jeton");
+                    await message.ShowAsync();
+
+
+
+                }
+                else
+                {
+                    var reponse = await responseAPI.Content.ReadAsStringAsync();
+                    var objectJson = JObject.Parse(reponse);
+
+                    var messageObject = objectJson["message"];
+
+                    string msg = messageObject.ToString();
+
+
+                    var message = new MessageDialog(msg);
+                    await message.ShowAsync();
+                }
+            }
         }
+
+
     }
 }

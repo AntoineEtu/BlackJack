@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BlackJack.ViewModel;
+using ModeleClasses;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +24,16 @@ namespace BlackJack.View
     /// </summary>
     public sealed partial class TableDeJeux : Page
     {
+        public JeuxViewModel JeuxViewModel;
         public TableDeJeux()
         {
             this.InitializeComponent();
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            JeuxViewModel = new JeuxViewModel((ConnexionApi)e.Parameter);
+
+            this.DataContext = JeuxViewModel;
         }
     }
 }
