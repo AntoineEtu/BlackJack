@@ -197,6 +197,8 @@ namespace ModeleClasses
                 }
             }
         }
+
+
         //récompense les joueurs étant authentifier comme gagnant
         public void recompenseUsers()
         {
@@ -232,7 +234,7 @@ namespace ModeleClasses
 
         public void tourBanque()
         {
-            if (this.bank.calculScore() < 16)
+            if (this.bank.calculScore() < 16)//si le score est à 16 ou plus on s'arrête
             {
                 donneCarte(this.bank);
             }
@@ -240,17 +242,6 @@ namespace ModeleClasses
             {
                 gameOver();//termine la partie
             }
-        }
-
-        public UserGame JoueurSuivant()
-        {
-            UserGame actif = null;
-            /*
-            foreach j : joueurs{
-
-            }
-            */
-            return actif;
         }
     }
 }
