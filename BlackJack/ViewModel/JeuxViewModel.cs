@@ -1,4 +1,5 @@
-﻿using ModeleClasses;
+﻿using BlackJack.View;
+using ModeleClasses;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -97,7 +98,9 @@ namespace BlackJack.ViewModel
                     var message = new MessageDialog("Vous avez quitter la table");
                     await message.ShowAsync();
 
-                    connexionApi.tableUtiliser = new Table();
+                    
+
+
 
                 }
                 else
@@ -127,8 +130,8 @@ namespace BlackJack.ViewModel
                 {
                     var message = new MessageDialog("Vous avez quitter la table");
                     await message.ShowAsync();
-
-
+                    connexionApi.tableUtiliser = new Table();
+                    actualFrame.Navigate(typeof(Casino), this.connexionApi);
                 }
                 else
                 {
