@@ -3,6 +3,7 @@ using ModeleClasses;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
@@ -18,19 +19,24 @@ using Windows.UI.Xaml.Controls;
 
 namespace BlackJack.ViewModel
 {
-    public class ConnexionViewModel : INotifyPropertyChanged
+    public class ConnexionViewModel : ViewModel
     {
-        
-       
-        Frame actualFrame { get { return Window.Current.Content as Frame; } }
 
         public event PropertyChangedEventHandler PropertyChanged;
+        Frame actualFrame { get { return Window.Current.Content as Frame; } }
 
-        public void NotifyPropertyChanged([CallerMemberName] string str = "")
+
+
+        public ConnexionApi connexionApi;
+        public ConnexionApi ConnexionApi
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(str));
+            get { return connexionApi; }
+            set {
+                connexionApi = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("connexionApi"));
+                }
             }
         }
 
@@ -68,8 +74,32 @@ namespace BlackJack.ViewModel
             }
         }
 
+        [JsonProperty("tables")]
+        private ObservableCollection<Table> _listTable;
+        public ObservableCollection<Table> ListTable
+        {
+            get { return _listTable; }
+            set
+            {
+                SetProperty(ref _listTable, value);
 
-        #region command
+            }
+        }
+
+        private ICommand exitUtilisateur;
+        public ICommand ExitUtilisateur
+        {
+            get
+            {
+                if (exitUtilisateur == null)
+                {
+
+                    exitUtilisateur = exitUtilisateur ?? (exitUtilisateur = new RelayCommand(obj => { Quitter(); }));
+
+                }
+                return exitUtilisateur;
+            }
+        }
 
         private ICommand connexionUtilisateur;
         public ICommand ConnexionUtilisateur
@@ -86,7 +116,10 @@ namespace BlackJack.ViewModel
             }
         }
 
+        public void Quitter()
+        {
 
+        }
         public async void Connexion()
         {
             if(Email == null || !VerificationEmail(Email))
@@ -110,7 +143,6 @@ namespace BlackJack.ViewModel
             }
            
         }
-
         public async void utilisateurConnexion(User user)
         {
             
@@ -125,23 +157,28 @@ namespace BlackJack.ViewModel
 
                 if (responseAPI.IsSuccessStatusCode)
                 {
+
+                    this.connexionApi = new ConnexionApi();
+
                     //Récupération des données envoyer par l'API
-                    var res = await responseAPI.Content.ReadAsStringAsync();
-                    var objectJson = JObject.Parse(res);
+                    var reponse = await responseAPI.Content.ReadAsStringAsync();
+                    var objectJson = JObject.Parse(reponse);
+
                     var tokenObject = objectJson["tokens"];
                     var userObject = objectJson["user"];
-                    
 
-                    user.access_token = tokenObject["access_token"].ToString();
-                    user.firstname = userObject["firstname"].ToString();
-                    user.lastname = userObject["lastname"].ToString();
-                    user.email = userObject["email"].ToString();
-                    user.stack = int.Parse(userObject["stack"].ToString());
+
+                    connexionApi.token.access_token = tokenObject["access_token"].ToString();
+                    connexionApi.user.firstname = userObject["firstname"].ToString();
+                    connexionApi.user.lastname = userObject["lastname"].ToString();
+                    connexionApi.user.email = userObject["email"].ToString();
+                    connexionApi.user.stack = int.Parse(userObject["stack"].ToString());
+
 
                     var message = new MessageDialog("Bienvenue");
                     await message.ShowAsync();
 
-                    actualFrame.Navigate(typeof(Casino));
+                    actualFrame.Navigate(typeof(Casino),this.connexionApi);
 
                 }
                 else
@@ -153,20 +190,15 @@ namespace BlackJack.ViewModel
             }
         }
 
-        // Methode qui vérifie la bonne écriture de l'email
-        public bool VerificationEmail(string _email)
-        {
-            return Regex.IsMatch(_email, @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
-        }
+        
 
-        //Methode qui encode le mot de passe 
-        public string EncodeToMd5(string pass)
+         public string EncodeToMd5(string pass)
         {
             string hash = null;
 
             if (pass != null)
             {
-                
+
                 string algo = HashAlgorithmNames.Md5;
                 IBuffer buffUtf8Msg = CryptographicBuffer.ConvertStringToBinary(pass, BinaryStringEncoding.Utf8);
 
@@ -177,15 +209,16 @@ namespace BlackJack.ViewModel
 
                 hash = CryptographicBuffer.EncodeToHexString(buffHash);
                 hash = Convert.ToBase64String(Encoding.UTF8.GetBytes(hash));
-
             }
 
 
             return hash;
         }
+        
 
 
-        #endregion command
+
+        
 
 
     }

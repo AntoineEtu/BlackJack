@@ -103,11 +103,15 @@
     <Compile Include="ViewModel\CasinoViewModel.cs" />
     <Compile Include="ViewModel\ConnexionViewModel.cs" />
     <Compile Include="ViewModel\UtilisateurViewModel.cs" />
+    <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="View\Casino.xaml.cs">
       <DependentUpon>Casino.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Inscription.xaml.cs">
       <DependentUpon>Inscription.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TableDeJeux.xaml.cs">
+      <DependentUpon>TableDeJeux.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +154,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Inscription.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TableDeJeux.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,15 +1,11 @@
 ﻿using ModeleClasses;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -17,22 +13,13 @@ using Windows.UI.Xaml.Controls;
 
 namespace BlackJack.ViewModel
 {
-    public class UtilisateurViewModel : INotifyPropertyChanged
+    public class UtilisateurViewModel : ViewModel
     {
 
-        
+        public event PropertyChangedEventHandler PropertyChanged;
         Frame actualFrame { get { return Window.Current.Content as Frame; } }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void NotifyPropertyChanged([CallerMemberName] string str = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(str));
-            }
-        }
-
+       
         private string _username;
         public string Username
         {
@@ -148,6 +135,25 @@ namespace BlackJack.ViewModel
             }
         }
 
+        private ICommand retour;
+        public ICommand Retour
+        {
+            get
+            {
+                if (retour == null)
+                {
+
+                    retour = retour ?? (retour = new RelayCommand(obj => { RetourPage(); }));
+
+                }
+                return retour;
+            }
+        }
+
+        public void RetourPage()
+        {
+            actualFrame.Navigate(typeof(MainPage));
+        }
 
         public async void Inscription()
         {
@@ -215,11 +221,8 @@ namespace BlackJack.ViewModel
                 }
             }
         }
-        public bool VerificationEmail(string _email)
-        {
-            return Regex.IsMatch(_email, @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
-        }
 
+        
     }
 
         

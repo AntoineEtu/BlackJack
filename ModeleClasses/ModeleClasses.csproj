@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Card.cs" />
+    <Compile Include="ConnexionApi.cs" />
     <Compile Include="GameController.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="PlateauJeu.cs" />
