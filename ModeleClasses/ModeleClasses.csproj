@@ -107,8 +107,8 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bank.cs" />
     <Compile Include="Card.cs" />
-    <Compile Include="GameController.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="PlateauJeu.cs" />
     <Compile Include="Reponse.cs" />

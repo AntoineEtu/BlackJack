@@ -14,6 +14,7 @@ namespace ModeleClasses
         public bool isCutCard { get; set; }
         public String pictURL { get; set; }
         public String name { get; set; }
+        public bool isVisible { get; set; }
 
         public Card()
         {
@@ -23,6 +24,7 @@ namespace ModeleClasses
             this.isCutCard = false;
             this.pictURL = "";
             this.name = "";
+            this.isVisible = true;
         }
 
         public Card(bool isCutCard)
@@ -35,6 +37,7 @@ namespace ModeleClasses
                 this.isCutCard = isCutCard;
                 this.pictURL = "";
                 this.name = "";
+                this.isVisible = true;
             }
         }
 
@@ -45,6 +48,8 @@ namespace ModeleClasses
             this.sign = sign;
             this.isCutCard = false;
             this.pictURL = url;
+            this.name = "";
+            this.isVisible = true;
         }
 
         public bool calculValeurAndName()

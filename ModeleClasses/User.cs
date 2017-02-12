@@ -36,7 +36,7 @@ namespace ModeleClasses
         public int is_connected;
 
         [JsonProperty("stack")]
-        public int stack;
+        public double stack;
 
         [JsonProperty("last_refill")]
         public DateTime last_refill;
@@ -70,8 +70,6 @@ namespace ModeleClasses
                 }
             }
         }
-
-        public UserGame userGame { get; set; }
 
         public int Id
         {
@@ -194,7 +192,7 @@ namespace ModeleClasses
             }
         }
 
-        public int Stack
+        public double Stack
         {
             get { return stack; }
             set {
@@ -285,7 +283,6 @@ namespace ModeleClasses
             this.is_connected = 0;
             this.status = 0;
             this.last_refill = new DateTime();
-            this.userGame = null;
 
         }
 
@@ -303,7 +300,6 @@ namespace ModeleClasses
             this.is_connected = 0;
             this.status = 0;
             this.last_refill = new DateTime();
-            this.userGame = null;
         }
 
         ~User()

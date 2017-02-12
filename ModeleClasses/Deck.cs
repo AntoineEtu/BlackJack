@@ -8,12 +8,18 @@ namespace ModeleClasses
 {
     public class Deck
     {
-       public List<Card> cardList { get; set; }
+        public List<Card> cardList { get; set; }
+        private Card carte { get; set; }
+        private int index { get; set; }
+        public bool needShuffle;
 
         public Deck()
         {
             this.cardList = null;
-            create6Decks();
+            this.needShuffle = false;
+            create6Decks();//la méthode initialise cardList
+            this.index = 0;
+            this.carte = cardList[0];
         }
 
         private List<Card> createDeck()//création d'un jeu de cartes en dur
@@ -62,12 +68,17 @@ namespace ModeleClasses
             melangeCartes();
             //deux fois :p
             melangeCartes();
-            //la cut card est ajouté
-            addCutCard();
         }
 
         public void melangeCartes()
         {
+            //réinitialisation des variables associées
+            this.needShuffle = false;
+            this.index = 0;
+            if (this.cardList.Count == 1%2)
+            {
+                removeCutCard();
+            }
             List<Card> deck = this.cardList;
             Random r = new Random();
             int n = deck.Count;
@@ -81,6 +92,8 @@ namespace ModeleClasses
                 deck[n] = echange;
             }
             this.cardList = deck;
+            addCutCard();
+            //nouveau deck mélangé
         }
 
         public void addCutCard()
@@ -93,7 +106,7 @@ namespace ModeleClasses
             int indexInsert = r.Next(fiftyP, eightyP);
             Card remove = deck[indexInsert];
             deck[indexInsert] = new Card(true);//constructeur de la cutCard
-            deck.Add(remove);//ajout de la carte en fin de paquet
+            deck.Add(remove);//ajout de l'autre carte en fin de paquet
             this.cardList = deck;
         }
 
@@ -108,6 +121,24 @@ namespace ModeleClasses
                     deck.Remove(deck[i]);//enlève la cutCard
                 }
             }
+            this.cardList = deck;
         }
+
+        public Card nextCard()
+        {
+            List<Card> deck = this.cardList;
+            Card suiv = deck[this.index];
+            if (suiv.isCutCard)
+            {
+                this.index++;
+                suiv = deck[this.index];//gestion de la cut card
+                this.needShuffle = true;
+            }
+            this.index++;
+            this.carte = suiv;
+            return suiv;
+        }
+
+
     }
 }

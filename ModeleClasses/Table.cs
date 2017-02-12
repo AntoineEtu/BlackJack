@@ -10,32 +10,32 @@ namespace ModeleClasses
     public class Table
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public int id { get; set; }
         [JsonProperty("max_seat")]
-        public int Max_seat { get; set; }
+        public int max_seat { get; set; }
         [JsonProperty("seats_available")]
-        public int Seats_available { get; set; }
+        public int seats_available { get; set; }
         [JsonProperty("min_bet")]
-        public Double Min_bet { get; set; }
+        public Double min_bet { get; set; }
         [JsonProperty("last_activity")]
-        public DateTime Last_activity { get; set; }
+        public DateTime last_activity { get; set; }
         [JsonProperty("is_closed")]
-        public Double Is_closed { get; set; }
+        public Double is_closed { get; set; }
         [JsonProperty("created_at")]
-        public DateTime Created_at { get; set; }
+        public DateTime created_at { get; set; }
         [JsonProperty("updated_at")]
-        public DateTime Updated_at { get; set; }
+        public DateTime updated_at { get; set; }
 
         public Table()
         {
-            this.Id = 0;
-            this.Max_seat = 0;
-            this.Seats_available = 0;
-            this.Min_bet = 0;
-            this.Last_activity = new DateTime();
-            this.Is_closed = 0;
-            this.Created_at = new DateTime();
-            this.Updated_at = new DateTime();
+            this.id = 0;
+            this.max_seat = 0;
+            this.seats_available = 0;
+            this.min_bet = 0;
+            this.last_activity = new DateTime();
+            this.is_closed = 0;
+            this.created_at = new DateTime();
+            this.updated_at = new DateTime();
         }
     }
 }
