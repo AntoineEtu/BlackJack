@@ -11,7 +11,7 @@ namespace ModeleClasses
         public Bank bank { get; set; }
         public Table table { get; set; }
         public List<UserGame> joueurs { get; set; }
-        public UserGame userActif { get; set; }
+        public int indexActif { get; set; }
         public Deck deck { get; set; }
         public List<Card> usedDeck { get; set; }
 
@@ -21,7 +21,7 @@ namespace ModeleClasses
             this.table = table;
             this.joueurs = null;
             this.deck = new Deck();
-            this.userActif = null;
+            this.indexActif = 0;
             this.usedDeck = new List<Card>();
         }
 
@@ -31,7 +31,7 @@ namespace ModeleClasses
             this.joueurs = new List<UserGame>();
             this.joueurs.Add(joueur);
             this.joueurs.Add(this.bank);//la banque est ajoutée en dernière pour l'odre des tours
-            this.userActif = this.joueurs[0];
+            this.indexActif = 0;
         }
 
         public void launchGame(int mise)
@@ -39,7 +39,7 @@ namespace ModeleClasses
             //on considère uniquement le joueur actif qui est le seul à jouer face à la banque
             this.joueurs[0].bet = mise;
             distribueCartes();
-
+            //on attend l'action du premier joueur
         }
 
         public bool distribueCartes()//le booleen permet de savoir si un mélange est nécessaire
@@ -66,56 +66,143 @@ namespace ModeleClasses
 
         }
 
+        //attribue une carte à un joueur
         public bool donneCarte(UserGame user)
         {
             user.main.Add(this.deck.nextCard());
             return this.deck.needShuffle;
         }
 
-        public bool gameOver()
+        //fonction à lancer après le tour de la banque
+        public void gameOver()
         {
+
+            //on détermine le,les gagnants
+            determineWinners();
+            //on récompense le,les gagnants
+            recompenseUsers();
+
+
             //on mélange le paquet si nécessaire
             if (this.deck.needShuffle)
             {
                 this.deck.melangeCartes();
             }
 
+
             //on vide la main de chaque joueur
             this.joueurs.ForEach(delegate (UserGame user)
             {
                 user.main.Clear();
             });
-
-            //on détermine le,les gagnants
-            determineWinners();
-            //on récompense le,les gagnants
-            recompenseUsers();
-            return this.deck.needShuffle;
         }
 
+        //détermine le,les gagnants et le coefficient de récompense (mise*coef)
         public void determineWinners()
         {
             //on prend le score de la banque
+            int scoreBank = this.bank.calculScore();
+            //on met le coefficient de gain de tous les utilisateurs à 0
+            this.joueurs.ForEach(delegate (UserGame user)
+            {
+                user.winMulti = 0;
+            });
 
-            //on regarde si quelqu'un a mieux
-            int score = 0;
-            this.joueurs.ForEach(delegate (UserGame user){
-                score = user.calculScore();
-                if(score == 21)
+            //début des tests
+
+            if (scoreBank > 21)//si la banque saute
+            {
+                this.joueurs.ForEach(delegate (UserGame user)
                 {
-                    if (user.main.Count == 2)
+                    //tout le monde gagne s'il a moins de 22
+                    if (user.calculScore() <= 21)
                     {
-                        user.winMulti = 2.5f;//Black jack 2.5 la mise
+                        user.winMulti = 2f;//double ses gains
+                        if(user.calculScore() == 21)
+                        {
+                            user.winMulti = 2.5f;//Black user
+                        }
+                        user.isWinner = true;
+                    }
+                });
+            }
+            else
+            {
+                //Si la banque a un score valide
+                if (scoreBank <= 21)
+                {
+                    //Si la banque a 21
+                    if (scoreBank == 21)
+                    {
+                        //Si la banque fait BlackJack
+                        if (this.bank.main.Count == 2)
+                        {
+                            int score1 = 0;
+                            //on cherche les joueurs qui ont pareils
+                            this.joueurs.ForEach(delegate (UserGame user)
+                            {
+                                score1 = user.calculScore();
+                                if (score1 == 21 && user.main.Count == 2)
+                                {
+                                    user.winMulti = 1f;//Black jack égalité
+                                    user.isWinner = true;
+                                    //checkAssurance
+                                }
+                                //sinon tout le monde perd
+                                //checkAssurance
+                            });
+                        }
+                        else//si la banque a plus de 2 cartes et 21
+                        {
+                            int score = 0;
+                            //on cherche les joueurs qui ont pareil soit 21
+                            this.joueurs.ForEach(delegate (UserGame user)
+                            {
+                                score = user.calculScore();
+                                if (score == 21)
+                                {
+                                    if (user.main.Count == 2 && this.bank.main.Count > 2)//la banque a 21 avec plus de 2 cartes
+                                    {
+                                        user.winMulti = 2.5f;//Black jack 2.5x la mise
+                                    }
+                                    else
+                                    {
+                                        user.winMulti = 1f;//21 égalité
+                                    }
+                                }
+                            });
+                        }
+                    }
+                    else
+                    {
+                        //on regarde si quelqu'un a mieux
+                        int score = 0;
+                        this.joueurs.ForEach(delegate (UserGame user)
+                        {
+                            score = user.calculScore();
+                            //si un joueur a un score > à la banque et <= 21
+                            if (score > bank.calculScore() && score <= 21)
+                            {
+                                if (user.main.Count == 2 && score == 21)//BlackJack pour joueur
+                                {
+                                    user.winMulti = 2.5f;//Black jack 2.5x la mise
+                                }
+                                else
+                                {
+                                    user.winMulti = 2f;// 2x sa mise
+                                }
+                            }
+                        });
                     }
                 }
-            });
+            }
         }
-
+        //récompense les joueurs étant authentifier comme gagnant
         public void recompenseUsers()
         {
             this.joueurs.ForEach(delegate (UserGame user)
             {
-                if (user.userDetails.username != "Bank" && user.isWinner)
+                if (user.userDetails.username != "Bank" && user.isWinner)//on vérifie que c'est un gagnant
                 {
                     double m = user.winMulti*user.bet;
                     user.giveMoney(m);
@@ -131,6 +218,28 @@ namespace ModeleClasses
 
         public void tourSuivant()
         {
+            this.indexActif= (this.indexActif + 1)%(nbJoueurs());
+            UserGame curr = this.joueurs[indexActif];
+            if (curr.userDetails.username == "Bank")
+            {
+                tourBanque();
+            }
+            else
+            {
+                //pas besoin de coder la fonction est lancé après le tour du joueur réel
+            }
+        }
+
+        public void tourBanque()
+        {
+            if (this.bank.calculScore() < 16)
+            {
+                donneCarte(this.bank);
+            }
+            else
+            {
+                gameOver();//termine la partie
+            }
         }
 
         public UserGame JoueurSuivant()
