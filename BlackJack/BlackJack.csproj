@@ -102,6 +102,7 @@
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModel\CasinoViewModel.cs" />
     <Compile Include="ViewModel\ConnexionViewModel.cs" />
+    <Compile Include="ViewModel\JeuxViewModel.cs" />
     <Compile Include="ViewModel\UtilisateurViewModel.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="View\Casino.xaml.cs">

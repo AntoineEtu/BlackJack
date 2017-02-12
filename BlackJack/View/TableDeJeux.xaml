@@ -8,6 +8,37 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32*"/>
+            <RowDefinition Height="73*"/>
+            <RowDefinition Height="210*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="32*"/>
+            <RowDefinition Height="73*"/>
+            <RowDefinition Height="210*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="131*" />
+            <ColumnDefinition Width="131*" />
+            <ColumnDefinition Width="7*" />
+            <ColumnDefinition Width="124*"/>
+            <ColumnDefinition Width="131*" />
+        </Grid.ColumnDefinitions>
+        <Rectangle Grid.Row="3" Grid.ColumnSpan="5" Fill="Black"/>
+        <Rectangle Grid.Column="2" Grid.RowSpan="7" Fill="Black" Grid.ColumnSpan="2" Margin="0,0,85,0"></Rectangle>
 
+        <ListView x:Name="Mescartes" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding MaTable}" Grid.RowSpan="2">
+            
+        </ListView>
+        <Button x:Name="btn1" Content="Deco" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Stretch"  Command="{Binding Path =ExitTable}" CommandParameter="{Binding Id}" VerticalAlignment="Stretch"  />
+        <Button x:Name="btn2" Content="Deco" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" />
+        <Button x:Name="btn3" Content="Deco" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Stretch"   VerticalAlignment="Stretch"  />
+        <Button x:Name="btn4" Content="Deco" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  />
+        <Button x:Name="btn5" Content="Deco" Grid.Column="4" Grid.Row="5" HorizontalAlignment="Stretch"   VerticalAlignment="Stretch"  />
+        <Button x:Name="btn6" Content="Deco" Grid.Column="3" Grid.Row="5" HorizontalAlignment="Stretch"   VerticalAlignment="Stretch"  />
+        <Button x:Name="btn7" Content="Deco" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Stretch"   VerticalAlignment="Stretch"  />
+        <TextBlock x:Name="textBlock" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"   Text="Banque" VerticalAlignment="Stretch" TextAlignment="Center"/>
+        <TextBlock x:Name="joueurText" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"   Text="Nom et Prénom" VerticalAlignment="Stretch" TextAlignment="Center"/>
+        <TextBlock x:Name="joueurText2" Grid.Column="4" Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"   Text="Nom et Prénom" VerticalAlignment="Stretch" TextAlignment="Center"/>
     </Grid>
 </Page>
